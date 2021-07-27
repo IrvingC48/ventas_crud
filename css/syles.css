@@ -1,0 +1,119 @@
+/* ------- FONTS -------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300;0,400;0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap');
+
+/* --------- GENERAL --------- */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Overpass', Arial, Helvetica;
+    /* background-color: #ABF99E;    */
+    color: #4800d9;
+    font-size: 1.3rem;
+    line-height: 1.4em;
+    margin: 0%;
+}
+
+.container-gbl {
+    color: #88FF00;
+    background-color: #5A2BEC;
+    padding: 1rem 5%;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+/* ---------HEADER--------------- */
+
+.main-header {
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+
+    /* position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%; */
+}
+
+.logo {
+    font-family: 'Teko';
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.logo-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#ul-main{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.flex-item-header{
+    margin: 1rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    line-height: 1.5px;
+}
+
+.flex-item-header:hover {
+    border-bottom: 4px solid #88FF00;
+    padding-bottom: 0.5rem;
+}
+
+.flex-item-header a {
+    color: #88FF00;
+    text-decoration: none;
+}
+
+/* ----------- MAIN SALES ------------- */
+
+.container-main {
+    padding: 5% 10%;
+    position: relative;
+}
+
+.container-main::before {
+    content: "";
+    background-image: url('../img/bg-index.png');
+    height: 65vh;
+    width: 80vh;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    right: 30%;
+    position: absolute;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+.container-main li {
+    margin-bottom: 1.5%;
+}
+
+.main-bold {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
