@@ -25,63 +25,44 @@
         <span class="form-title">Formulario de Venta</span>
         <div class="cl2">
             <div class="wrap-input validate-input">
-                <label for="name" class="label-input lb-i-x">NOMBRE CLIENTE</label>
+                <label class="label-input lb-i-x">NOMBRE CLIENTE</label>
                 <input type="text" class="input100 input100-x" name="name" placeholder="Ingresa nombre del cliente"></input>
             </div>
-            <div class="wrap-input validate-input">
-                <label for="id_sale" class="label-input lb-i-x">ID_VENTA</label>
-                <input type="text" class="input100 input100-x" name="id_sale" placeholder="ID_VENTA"></input>
+            <div class="wrap-input validate-input pair-labels">
+                <label class="label-input lb-i-x">ID_VENTA</label>
+                <label class="label-input2" name="id_sale">0</label>
             </div>
         </div>
         <div class="cl2">
             <div class="wrap-input validate-input">
-                <label for="product" class="label-input lb-i-x">PRODUCTO</label>
+                <label class="label-input lb-i-x">PRODUCTO</label>
                 <select id="products" class="select100">
                     <option>Seleccione un producto...</option>
                 </select>
             </div>
             <div class="wrap-input validate-input">
-                <label for="cantidad" class="label-input lb-i-x">CANTIDAD</label>
-                <input type="text" class="input100 input100-x" name="lada" placeholder="Cantidad"></input>
+                <label class="label-input lb-i-x">CANTIDAD</label>
+                <input type="number" class="input100 input100-x" name="amount" placeholder="Cantidad"></input>
             </div>
         </div>
         <div class="cl2">
-            <div class="wrap-input validate-input">
-                <label for="subtotal" class="label-input lb-i-x">SUBTOTAL</label>
-                <input type="text" class="input100 input100-x" name="subtotal" placeholder="SUBTOTAL"></input>
+            <div class="wrap-input validate-input pair-labels">
+                <label class="label-input lb-i-x">SUBTOTAL</label>
+                <label class="label-input2" id="subtotal">0</label>
             </div>
             <div class="container-sale-btn">
-                <button class="contact-sale-btn" id="btn-test">AGREGAR PRODUCTO</button>
+                <button class="contact-sale-btn" id="btn-addP">AGREGAR PRODUCTO</button>
             </div>
         </div>
     </form>
     <hr>
     <div class="list-subtotal">
         <span class="form-title">Lista de Venta</span>
-        <div id="ls-products">
-            <div class="prd-sub">
-                <div class="flex-row">
-                    <label class="label-input lb-i-x">PRODUCTO</label>
-                    <label class="input100 lb-i-x">UN PRODUCTO MUY LARGO</label>
-                </div>
-                <div class="flex-row">
-                    <label for="name" class="label-input lb-i-x">CANTIDAD</label>
-                    <label for="name" class="input100 lb-i-x">15</label>
-                </div>
-                <div class="flex-row">
-                    <label for="name" class="label-input lb-i-x">SUBTOTAL</label>
-                    <label for="name" class="input100 lb-i-x">300</label>
-                </div>
-                <div class="flex-row">
-                    <button class="contact-sale-btn btn-mod" id="btn-test">MODIFICAR</button>
-                    <button class="contact-sale-btn btn-del" id="btn-test">ELIMINAR</button>
-                </div>
-            </div>
-        </div>
+        <div id="ls-products"></div>
         <div class="cl2">
-            <div class="wrap-input validate-input">
-                <label for="subtotal" class="label-input lb-i-x">PRECIO TOTAL DE VENTA</label>
-                <input type="text" class="input100 input100-x" name="total" placeholder="TOTAL"></input>
+            <div class="wrap-input validate-input pair-labels">
+                <label class="label-input lb-i-x">PRECIO TOTAL DE VENTA</label>
+                <label class="label-input2" name="total">0</label>
             </div>
             <div class="container-sale-btn">
                 <button class="contact-sale-btn" id="btn-test">CERRAR PEDIDO</button>
