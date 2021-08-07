@@ -226,3 +226,5 @@ const clearAll = () => {
     total.innerText = 0;
     sessionStorage.clear();
 };
+
+const clearLS = () => {localStorage.clear()};
