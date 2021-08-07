@@ -39,8 +39,8 @@ const templateSubtotal = (object, index) => {
                 <label class="input100 lb-i-x">${object.subtotal}</label>
             </div>
             <div class="flex-column">
-                <button class="contact-sale-btn btn-mod" id="btn-upd">MODIFICAR</button>
-                <button class="contact-sale-btn btn-del" id="btn-del">ELIMINAR</button>
+                <button class="contact-sale-btn btn-mod" onClick="uptProd(${index})">MODIFICAR</button>
+                <button class="contact-sale-btn btn-del" onClick="delProd(${index})">ELIMINAR</button>
             </div>
         </div>
     `;
@@ -49,30 +49,37 @@ const templateSubtotal = (object, index) => {
 document.getElementById("btn-addP").addEventListener('click', function(event) {
     event.preventDefault();
 
-    const nomC = document.getElementsByName("name")[0].value;
     const products = document.getElementById("products").value;
     const amount = document.getElementsByName("amount")[0].value;
     const subtotal = document.getElementById("subtotal").innerText;
-    const listSub = document.getElementById("ls-products");
-    const total = document.getElementsByName("total")[0];
+    const valueBtn = document.getElementById("btn-addP").innerText;
     const amountProduct = sessionStorage.getItem("amountProduct");
-    let priceTotal = 0;
+    const valueIndex = sessionStorage.getItem('indexM');
 
     if (amountProduct === null) {return alert("Selecciona un producto válido")};
     if (Number(amountProduct) < amount) {return alert(`Sólo hay ${amountProduct} piezas disponibles`)};
 
-    addLS(products, amount, subtotal);
+    if (valueBtn === 'AGREGAR PRODUCTO') {
+       addLS(products, amount, subtotal);
+    } else {
+        updLS(products, amount, subtotal, valueIndex);
+    };
 
-    const listSales = JSON.parse(sessionStorage.getItem("listSales"));
-    listSub.innerHTML = '';
-    for (const key in listSales) {
-        listSub.innerHTML += templateSubtotal(listSales[key], key);
-        priceTotal += Number(listSales[key].subtotal);
-    }
-    total.innerText = priceTotal;
-
-    // alert("Producto agregado");
+    renderLS();
 });
+
+const uptProd = (index) => {
+    document.getElementById("btn-addP").innerText = "MODIFICAR PRODUCTO";
+    sessionStorage.setItem('indexM', index);
+};
+
+const delProd = (index) => {
+    const listSales = JSON.parse(sessionStorage.getItem("listSales"));
+    listSales.splice(index, 1);
+    sessionStorage.setItem('listSales', JSON.stringify(listSales));
+
+    renderLS();
+};
 
 const addLS = (product, amount, subtotal) => {
     const listSales = JSON.parse(sessionStorage.getItem("listSales"));
@@ -89,7 +96,39 @@ const addLS = (product, amount, subtotal) => {
         const new_listSales = [{'producto':product, 'cantidad':amount, 'subtotal':subtotal}];
         sessionStorage.setItem('listSales', JSON.stringify(new_listSales));
     };
+};
 
+const updLS = (product, amount, subtotal, index) =>{
+    const listSales = JSON.parse(sessionStorage.getItem("listSales"));
+
+    if (listSales[index].producto !== product) {
+        const existProdL = listSales.filter((value) => (value.producto === product))
+        if (existProdL.length > 0) {
+            return alert(`¡${product} ya fue cargado a la Lista de Ventas, previamente!`);
+        } else {
+            listSales[index] = {'producto':product, 'cantidad':amount, 'subtotal':subtotal};
+            sessionStorage.setItem('listSales', JSON.stringify(listSales));
+            document.getElementById("btn-addP").innerText = "AGREGAR PRODUCTO";
+        };
+    } else {
+        listSales[index] = {'producto':product, 'cantidad':amount, 'subtotal':subtotal};
+        sessionStorage.setItem('listSales', JSON.stringify(listSales));
+        document.getElementById("btn-addP").innerText = "AGREGAR PRODUCTO";
+    };
+};
+
+const renderLS = () => {
+    const listSub = document.getElementById("ls-products");
+    const total = document.getElementsByName("total")[0];
+    const listSales = JSON.parse(sessionStorage.getItem("listSales"));
+    let priceTotal = 0;
+
+    listSub.innerHTML = '';
+    for (const key in listSales) {
+        listSub.innerHTML += templateSubtotal(listSales[key], key);
+        priceTotal += Number(listSales[key].subtotal);
+    }
+    total.innerText = priceTotal;
 };
 
 document.getElementById("products").addEventListener("change", function() {
@@ -147,6 +186,7 @@ document.getElementById("btn-close").addEventListener('click', function() {
     let id_sale = localStorage.getItem("id_sale");
 
     if (listSales === null) {return alert("No hay productos agregados a la lista")};
+    if (listSales.length === 0) {return alert("No hay productos agregados a la lista")};
     if (totalSubs === null) {totalSubs = []};
     if (totalSales === null) {totalSales = []};
 
