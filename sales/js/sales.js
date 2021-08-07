@@ -7,7 +7,7 @@ const OnLoad = () => {
         opt.text = objet_LS[prd].nom_producto;
         objSelect.add(opt);
     }
-}
+};
 
 const templateSubtotal = (object, index) => {
     return `
@@ -34,7 +34,7 @@ const templateSubtotal = (object, index) => {
             </div>
         </div>
     `;
-}
+};
 
 document.getElementById("btn-addP").addEventListener('click', function(event) {
     event.preventDefault();
@@ -45,7 +45,11 @@ document.getElementById("btn-addP").addEventListener('click', function(event) {
     const subtotal = document.getElementById("subtotal").innerText;
     const listSub = document.getElementById("ls-products");
     const total = document.getElementsByName("total")[0];
+    const amountProduct = sessionStorage.getItem("amountProduct");
     let priceTotal = 0;
+
+    if (amountProduct === null) {return alert("Selecciona un producto válido")};
+    if (amountProduct < amount) {return alert(`Sólo hay ${amountProduct} piezas disponibles`)};
 
     addLS(products, amount, subtotal);
 
@@ -83,36 +87,37 @@ document.getElementById("products").addEventListener("change", function() {
     const valueAmount = document.getElementsByName("amount")[0].value;
     const products = document.getElementById("products").value;
 
-
     if (objet_LS !== null) {
         const existProdL = objet_LS.filter((value) => (value.nom_producto === products))
         if (existProdL.length > 0) {
             sessionStorage.setItem('priceProduct', Number(existProdL[0].price));
+            sessionStorage.setItem('amountProduct', Number(existProdL[0].cnt_producto));
             calcSubtotal(Number(existProdL[0].price) , valueAmount);
         } else {
             sessionStorage.setItem('priceProduct', 0);
+            sessionStorageC.setItem('amountProduct', 0);
             calcSubtotal(0 , valueAmount);
         };
     } else {
         sessionStorage.setItem('priceProduct', 0);
+        sessionStorage.setItem('amountProduct', 0);
         calcSubtotal(0 , valueAmount);
     };
 });
 
-document.getElementsByName("amount")[0].addEventListener("keyup", function() { 
+document.getElementsByName("amount")[0].addEventListener("keyup", function() {
     const valueAmount = document.getElementsByName("amount")[0].value;
     let valueProd = sessionStorage.getItem('priceProduct');
 
     calcSubtotal(valueProd , valueAmount);
 });
 
-
 const calcSubtotal = (valueProd, valueAmount) => {
     const subtotal = document.getElementById("subtotal");
 
     if (valueProd === undefined) {valueProd = 0};
     subtotal.innerText = valueProd * valueAmount;
-}
+};
 
 // document.querySelectorAll()
 
@@ -122,19 +127,58 @@ const calcSubtotal = (valueProd, valueAmount) => {
 //     // splice(index , 1);
 // };
 
-const objeto = [{'nom_producto': 'Prd1', 'cnt_producto':10, 'price':20, 'exist_producto':true}, {'nom_producto': 'Prd2', 'cnt_producto':5, 'price':12, 'exist_producto':false}];
-// console.log(objeto);
-document.getElementById("btn-test").addEventListener('click', function() {
-    const listSub = document.getElementById("ls-products");
-    listSub.innerHTML = '';
+const objeto = [
+    {'nom_producto': 'Prd1', 'cnt_producto':10, 'price':20, 'exist_producto':true},
+    {'nom_producto': 'Prd2', 'cnt_producto':50, 'price':12, 'exist_producto':false},
+    {'nom_producto':'Prd3', 'cnt_producto':25, 'price':5, 'exist_producto':true}
+];
 
-    // localStorage.setItem('datos', JSON.stringify(objeto));
+document.getElementById("btn-close").addEventListener('click', function() {
+    const listSales = JSON.parse(sessionStorage.getItem("listSales"));
+    let totalSubs = JSON.parse(localStorage.getItem("totalSubs"));
+    let totalSales = JSON.parse(localStorage.getItem("totalSales"));
+    const nomC = document.getElementsByName("name")[0].value;
+    const valuesSale = document.getElementsByName("id_sale")[0];
+    const total = document.getElementsByName("total")[0].innerText;
+    let id_sale = localStorage.getItem("id_sale");
 
-    // let objet_LS = JSON.parse(localStorage.getItem('datos'));
-    // objet_LS.push({'nom_producto':'Prd3', 'cnt_producto':2, 'price':5, 'exist_producto':true}); //Método agregar producto
-    // localStorage.setItem('datos', JSON.stringify(objet_LS));
+    if (listSales === null) {return alert("No hay productos agregados a la lista")};
+    if (totalSubs === null) {totalSubs = []};
+    if (totalSales === null) {totalSales = []};
+
+    if (id_sale === null) {
+        id_sale = 0;
+        localStorage.setItem("id_sale", 1);
+    } else {
+        localStorage.setItem("id_sale", Number(id_sale)+1);
+    };
+
+    const listSales2 = listSales.map(arr => ({...arr, "id_sale": Number(id_sale)+1, "nom_client": nomC}));
+    for (const key in listSales2) {
+        totalSubs.push(listSales2[key]);
+    };
+    localStorage.setItem("totalSubs", JSON.stringify(totalSubs));
+    totalSales.push({"id_sale":Number(id_sale)+1, "nom_client": nomC, "priceTotal": total});
+    localStorage.setItem("totalSales", JSON.stringify(totalSales));
 
     // localStorage.clear();
-    sessionStorage.clear();
+
+    clearAll();
+    valuesSale.innerText = Number(id_sale)+1;
     alert("Venta Creada");
 });
+
+const clearAll = () => {
+    const listSub = document.getElementById("ls-products");
+    const objSelect = document.getElementById("products");
+    const valueAmount = document.getElementsByName("amount")[0];
+    const subtotal = document.getElementById("subtotal");
+    const total = document.getElementsByName("total")[0];
+
+    listSub.innerHTML = '';
+    objSelect.value = 'Seleccione un producto...';
+    valueAmount.value = '';
+    subtotal.innerText = 0;
+    total.innerText = 0;
+    sessionStorage.clear();
+};
