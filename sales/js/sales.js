@@ -1,6 +1,16 @@
 const OnLoad = () => {
     let objet_LS = JSON.parse(localStorage.getItem('datos'));
     const objSelect = document.getElementById("products");
+    const defaultProducts = [
+        {'nom_producto': 'Prd1', 'cnt_producto':10, 'price':20, 'exist_producto':true},
+        {'nom_producto': 'Prd2', 'cnt_producto':50, 'price':12, 'exist_producto':false},
+        {'nom_producto': 'Prd3', 'cnt_producto':25, 'price':5, 'exist_producto':true}
+    ];
+
+    if (objet_LS === null) {
+        objet_LS = defaultProducts;
+        localStorage.setItem("datos" ,JSON.stringify(defaultProducts));
+    };
 
     for (const prd in objet_LS) {
         const opt = document.createElement("option");
@@ -49,7 +59,7 @@ document.getElementById("btn-addP").addEventListener('click', function(event) {
     let priceTotal = 0;
 
     if (amountProduct === null) {return alert("Selecciona un producto válido")};
-    if (amountProduct < amount) {return alert(`Sólo hay ${amountProduct} piezas disponibles`)};
+    if (Number(amountProduct) < amount) {return alert(`Sólo hay ${amountProduct} piezas disponibles`)};
 
     addLS(products, amount, subtotal);
 
@@ -126,12 +136,6 @@ const calcSubtotal = (valueProd, valueAmount) => {
 
 //     // splice(index , 1);
 // };
-
-const objeto = [
-    {'nom_producto': 'Prd1', 'cnt_producto':10, 'price':20, 'exist_producto':true},
-    {'nom_producto': 'Prd2', 'cnt_producto':50, 'price':12, 'exist_producto':false},
-    {'nom_producto':'Prd3', 'cnt_producto':25, 'price':5, 'exist_producto':true}
-];
 
 document.getElementById("btn-close").addEventListener('click', function() {
     const listSales = JSON.parse(sessionStorage.getItem("listSales"));
