@@ -2,9 +2,10 @@ const OnLoad = () => {
     let objet_LS = JSON.parse(localStorage.getItem('datos'));
     const objSelect = document.getElementById("products");
     const defaultProducts = [
-        {'nom_producto': 'Prd1', 'cnt_producto':10, 'price':20, 'exist_producto':true},
-        {'nom_producto': 'Prd2', 'cnt_producto':50, 'price':12, 'exist_producto':false},
-        {'nom_producto': 'Prd3', 'cnt_producto':25, 'price':5, 'exist_producto':true}
+        {'nom_producto': 'Producto1', 'cnt_producto':100, 'price':20, 'exist_producto':true},
+        {'nom_producto': 'Producto2', 'cnt_producto':50, 'price':12, 'exist_producto':true},
+        {'nom_producto': 'Producto3', 'cnt_producto':60, 'price':5, 'exist_producto':true},
+        {'nom_producto': 'Producto4', 'cnt_producto':25, 'price':95, 'exist_producto':true}
     ];
 
     if (objet_LS === null) {
