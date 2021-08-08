@@ -118,9 +118,9 @@ a, button {
     font-size: 1.5rem;
 }
 
-/* ---------CONTACT FORM--------------- */
+/* ---------MAIN FORM--------------- */
 
-.contact-form {
+.main-form {
     display: block;
     padding: 3% 10%;
 
@@ -277,4 +277,16 @@ input {
 .btn-del {
     background-color: #D11A2A;
     margin: .3rem;
+}
+
+.list-sale {
+    display: grid;
+    grid-template-columns: 15% 40% 25% 15%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    border: 1.5px solid #88FF00;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
