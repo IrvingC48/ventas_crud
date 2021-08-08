@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/syles.css">
+    <title>Mi Tiendita - Ventas Totales</title>
+</head>
+<body onload="OnLoad()">
+    <header id="header"">
+        <div class="main-header logo-nav-container container-gbl">
+            <p class="logo">MI TIENDITA</p>
+            <nav class="main-nav">
+                <ul id="ul-main">
+                    <li class="flex-item-header"><a href="../sales/ventas.html">Crear Venta</a></li>
+                    <li class="flex-item-header"><a href="#">Ventas Totales</a></li>
+                    <li class="flex-item-header"><a href="#">Productos</a></li>
+                    <li class="flex-item-header"><a href="#" onclick="clearLS()">Liberar Local Storage</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-form">
+        <span class="form-title">Ventas Totales</span>
+        <div id="ls-sales"></div>
+    </main>
+
+    <script src="./js/totalS.js"></script>
+</body>
+</html>
