@@ -61,7 +61,7 @@ document.getElementById("btn-addP").addEventListener('click', function(event) {
     if (Number(amountProduct) < amount) {return alert(`Sólo hay ${amountProduct} piezas disponibles`)};
 
     if (valueBtn === 'AGREGAR PRODUCTO') {
-       addLS(products, amount, subtotal);
+        addLS(products, amount, subtotal);
     } else {
         updLS(products, amount, subtotal, valueIndex);
     };
@@ -169,14 +169,6 @@ const calcSubtotal = (valueProd, valueAmount) => {
     subtotal.innerText = valueProd * valueAmount;
 };
 
-// document.querySelectorAll()
-
-// document.getElementById("btn-upd").addEventListener('click', function(event) {
-//     event.parentNode
-
-//     // splice(index , 1);
-// };
-
 document.getElementById("btn-close").addEventListener('click', function() {
     const listSales = JSON.parse(sessionStorage.getItem("listSales"));
     let totalSubs = JSON.parse(localStorage.getItem("totalSubs"));
@@ -205,8 +197,6 @@ document.getElementById("btn-close").addEventListener('click', function() {
     localStorage.setItem("totalSubs", JSON.stringify(totalSubs));
     totalSales.push({"id_sale":Number(id_sale)+1, "nom_client": nomC, "priceTotal": total});
     localStorage.setItem("totalSales", JSON.stringify(totalSales));
-
-    // localStorage.clear();
 
     clearAll();
     valuesSale.innerText = Number(id_sale)+1;
